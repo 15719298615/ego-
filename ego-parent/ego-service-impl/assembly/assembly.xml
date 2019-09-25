@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
+	<!-- 该字符会添加到最终tar.gz包的名称后面，作为后缀 -->
+	<id>assembly</id>
+	<!-- 指定打包的格式为tar.gz，该类型压缩包在linux中比较常见 -->
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+	<!-- 在tar.gz压缩包中是否包含根文件夹，该根文件夹名称和tar.gz去掉id后缀一致 -->
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<fileSets>
+		<!-- 将项目根路径下assembly/bin路径中的内容打包到压缩包中的根目录下的bin目录中 -->
+		<fileSet>
+			<!-- 相对项目根路径的相对路径 -->
+			<directory>assembly/bin</directory>
+			<outputDirectory>bin</outputDirectory>
+			<!-- 设置最终tar.gz中该文件夹下的权限，跟linux权限写法一致 -->
+			<fileMode>0755</fileMode>
+		</fileSet>
+		<!-- 将项目根路径下assembly/conf路径中的内容打包到压缩包中的根目录下的conf目录中 -->
+		<fileSet>
+			<directory>assembly/conf</directory>
+			<outputDirectory>conf</outputDirectory>
+			<!-- 设置其linux权限 -->
+			<fileMode>0644</fileMode>
+		</fileSet>
+	</fileSets>
+	<!-- 将所有依赖的jar包打包到压缩包中的根目录下的lib目录中 -->
+	<!-- 此lib目录中包含自己开发的项目jar包以及demo_service.jar，还有第三方的jar包 -->
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>lib</outputDirectory>
+		</dependencySet>
+	</dependencySets>
+</assembly>
